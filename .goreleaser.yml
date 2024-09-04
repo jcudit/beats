@@ -19,25 +19,25 @@ archives:
 - format: tar.gz
   name_template: "{{.ProjectName }}_{{.Version }}_{{.Os }}_{{.Arch }}"
 
-# dockers:
-#   - image_templates:
-#       - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-amd64"
-#     use: buildx
-#     build_flag_templates:
-#       - "--pull"
-#       - "--platform=linux/amd64"
-#     dockerfile: ./filebeat/Dockerfile
-#   - image_templates:
-#       - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-arm64"
-#     use: buildx
-#     build_flag_templates:
-#       - "--pull"
-#       - "--platform=linux/arm64"
-#     goarch: arm64
-#     dockerfile: ./filebeat/Dockerfile
+dockers:
+  - image_templates:
+      - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-amd64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/amd64"
+    dockerfile: ./filebeat/Dockerfile
+  - image_templates:
+      - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-arm64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm64"
+    goarch: arm64
+    dockerfile: ./filebeat/Dockerfile
 
-# docker_manifests:
-#   - name_template: "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}"
-#     image_templates:
-#       - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-amd64"
-#       - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-arm64"
+docker_manifests:
+  - name_template: "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}"
+    image_templates:
+      - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-amd64"
+      - "ghcr.io/jcudit/{{ .ProjectName }}:{{ .Tag }}-arm64"
