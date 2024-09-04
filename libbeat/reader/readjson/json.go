@@ -74,7 +74,7 @@ func (r *JSONReader) decode(text []byte) ([]byte, mapstr.M) {
 	if err != nil || jsonFields == nil {
 		if !r.cfg.IgnoreDecodingError {
 			stack := debug.Stack()
-			r.logger.Errorf("Error decoding JSON: %+v\n%s\n%s", err, string(text), stack)
+			r.logger.Errorf("Error decoding JSON (jcudit): %+v\n%s\n%s", err, string(text), stack)
 		}
 		if r.cfg.AddErrorKey {
 			jsonFields = mapstr.M{"error": createJSONError(fmt.Sprintf("Error decoding JSON: %v", err))}
