@@ -21,6 +21,7 @@ import (
 	"bytes"
 	gojson "encoding/json"
 	"fmt"
+	"runtime/debug"
 	"time"
 
 	"github.com/elastic/beats/v7/libbeat/beat"
@@ -72,7 +73,8 @@ func (r *JSONReader) decode(text []byte) ([]byte, mapstr.M) {
 	err := unmarshal(text, &jsonFields)
 	if err != nil || jsonFields == nil {
 		if !r.cfg.IgnoreDecodingError {
-			r.logger.Errorf("Error decoding JSON: %v", err)
+			stack := debug.Stack()
+			r.logger.Errorf("Error decoding JSON: %+v\n%s\n%s", err, string(text), stack)
 		}
 		if r.cfg.AddErrorKey {
 			jsonFields = mapstr.M{"error": createJSONError(fmt.Sprintf("Error decoding JSON: %v", err))}
